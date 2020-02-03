@@ -1,12 +1,15 @@
 steps:
+  - name: 'cnservices/python-virtualenv'
+    args: ['make', 'lint']
+
+  - name: 'cnservices/python-virtualenv'
+    args: ['make', 'test']
+
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 'eu.gcr.io/$PROJECT_ID/cloudrun-hello', '.']
 
   - name: "gcr.io/cloud-builders/docker"
     args: ["push", "eu.gcr.io/$PROJECT_ID/cloudrun-hello"]
-
-  - name: 'eu.gcr.io/$PROJECT_ID/cloudrun-hello'
-    args: ['pytest']
 
   - name: "gcr.io/cloud-builders/gcloud"
     args:
